@@ -1,0 +1,414 @@
+---
+swagger: "2.0"
+info:
+  description: "ToGo API for COMS6998"
+  version: "1.0.0"
+  title: "ToGo API"
+host: "jg6jx8e9a4.execute-api.us-east-1.amazonaws.com"
+basePath: "/test2"
+schemes:
+- "https"
+paths:
+  /business:
+    post:
+      operationId: "createBusiness"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "CreateBusinessRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/Business"
+      responses:
+        "200":
+          description: "confirmation of created business"
+          schema:
+            $ref: "#/definitions/Confirmation"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "403 response"
+          schema:
+            $ref: "#/definitions/Error"
+    get:
+      operationId: "getBusinessProfile"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "BusinessProfileRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/BusinessRequest"
+      responses:
+        "200":
+          description: "business profile"
+          schema:
+            $ref: "#/definitions/Business"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "403 response"
+          schema:
+            $ref: "#/definitions/Error"
+    put:
+      operationId: "updateBusiness"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "UpdateBusinessRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/Business"
+      responses:
+        "200":
+          description: "businesses profiles"
+          schema:
+            $ref: "#/definitions/Confirmation"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "403 response"
+          schema:
+            $ref: "#/definitions/Error"
+      
+  /businesses:
+    get:
+      operationId: "getBusinessesProfile"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "GetBusinessesRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/BusinessesRequest"
+      responses:
+        "200":
+          description: "businesses profiles"
+          schema:
+            $ref: "#/definitions/Businesses"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "403 response"
+          schema:
+            $ref: "#/definitions/Error"
+  /review:
+    post:
+      operationId: "createReview"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "CreateReviewRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/MakeReview"
+      responses:
+        "200":
+          description: "confirmation of created review"
+          schema:
+            $ref: "#/definitions/Confirmation"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "403 response"
+          schema:
+            $ref: "#/definitions/Error"
+    put:
+      operationId: "updateReview"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "UpdateReviewRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/MakeReview"
+      responses:
+        "200":
+          description: "confirmation of updated review"
+          schema:
+            $ref: "#/definitions/Confirmation"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "403 response"
+          schema:
+            $ref: "#/definitions/Error"
+    
+  /reviews:
+    get:
+      operationId: "getReviews"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "GetReviewsRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/ReviewsRequest"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Reviews"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "403 response"
+          schema:
+            $ref: "#/definitions/Error"
+            
+definitions:
+  ################# MODELS ########################
+  
+  BusinessRequest:
+    type: "object"
+    properties:
+      email-address:
+        type: "string"
+        
+  ReviewsRequest:
+    type: "object"
+    properties:
+      filters:
+        type: "object"
+        properties:
+          user-email:
+            type: "string"
+          business-email:
+            type: "string"
+            
+  BusinessesRequest:
+    type: "object"
+    properties:
+      filters:
+        type: "object"
+        properties:
+          cuisine:
+            type: string
+          user_location:
+            type: "object"
+            properties:
+              longitude:
+                type: "number"
+                format: "float"
+              latitude:
+                type: "number"
+                format: "float"
+          radius:
+            type: "integer"
+            format: "int32"
+    
+  UpdateBusiness:
+    $ref: "#/definitions/Business"
+    
+  MakeReview:
+    $ref: "#/definitions/Review"
+  
+  Businesses:
+    type: "object"
+    properties:
+      businesses:
+        type: "array"
+        items:
+          $ref: "#/definitions/Business"
+          
+  Business:
+    type: "object"
+    properties:
+      name: 
+        type: "string"
+      owner:
+        type: "object"
+        properties:
+          firstname: 
+            type: "string"
+          lastname:
+            type: "string"
+      cuisine: 
+        type: "string"
+      email-address:
+        type: "string"
+      location:
+            type: "object"
+            properties:
+              longitude:
+                type: "number"
+                format: "float"
+              latitude:
+                type: "number"
+                format: "float"
+      menu:
+        type: "array"
+        items:
+          properties:
+            food-title: 
+              type: "string"
+            price:
+              type: "number"
+              format: "float"
+            description: 
+              type: "string"
+      operational-hours:
+        type: "object"
+        properties:
+          sunday:
+            type: "object"
+            properties:
+              is-open:
+                type: "boolean"
+              open-time:
+                type: "string"
+              close-time: 
+                type: "string"
+          monday:
+            type: "object"
+            properties:
+              is-open:
+                type: "boolean"
+              open-time:
+                type: "string"
+              close-time: 
+                type: "string"
+          tuesday:
+            type: "object"
+            properties:
+              is-open:
+                type: "boolean"
+              open-time:
+                type: "string"
+              close-time: 
+                type: "string"
+          wednesday:
+            type: "object"
+            properties:
+              is-open:
+                type: "boolean"
+              open-time:
+                type: "string"
+              close-time: 
+                type: "string"
+          thursday:
+            type: "object"
+            properties:
+              is-open:
+                type: "boolean"
+              open-time:
+                type: "string"
+              close-time: 
+                type: "string"
+          friday:
+            type: "object"
+            properties:
+              is-open:
+                type: "boolean"
+              open-time:
+                type: "string"
+              close-time: 
+                type: "string"
+          saturday:
+            type: "object"
+            properties:
+              is-open:
+                type: "boolean"
+              open-time:
+                type: "string"
+              close-time: 
+                type: "string"
+                  
+          
+  Reviews:
+    type: "object"
+    properties:
+      reviews:
+        type: "array"
+        items: 
+          $ref: "#/definitions/Review"
+  Review:
+    type: "object"
+    properties:
+      user-email: 
+        type: "string"
+      business-email:
+        type: "string"
+      rating:
+        type: "integer"
+        format: "int4"
+      review:
+        type: "string"
+      business-reply:
+        type: "string"
+        
+  Confirmation:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+        
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+        
+        
